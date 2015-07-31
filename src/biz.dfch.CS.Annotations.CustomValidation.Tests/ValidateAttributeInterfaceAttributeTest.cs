@@ -154,5 +154,46 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
             result = Validator.TryValidateObject(person, validationContext, validationResults, true);
             Assert.IsTrue(result);
         }
+        [TestMethod]
+        public void ValidatingFluentValidationOnPersonWithFluentValidationReturnsValidationError()
+        {
+            var person = new PersonWithFluentValidation();
+            person.Name = "Edgar";
+            person.Description = "some description";
+            person.Age = 42;
+            person.CustomValidationPropertyFail = "some contents that will fail";
+
+            var validationResults = new List<ValidationResult>();
+            var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(person);
+            var result = false;
+            result = Validator.TryValidateObject(person, validationContext, validationResults, true);
+            Assert.IsFalse(result);
+            Assert.AreEqual(1, validationResults.Count());
+            var validationResult = validationResults[0];
+            Assert.AreEqual(1, validationResult.MemberNames.Count());
+            var memberName = validationResult.MemberNames.First();
+            Assert.AreEqual("CustomValidationPropertyFail", memberName);
+
+            //DFTODO - implement test
+            Assert.Inconclusive();
+        }
+        [TestMethod]
+        public void ValidatingFluentValidationOnPersonWithFluentValidationReturnsOk()
+        {
+            var person = new PersonWithFluentValidation();
+            person.Name = "Edgar";
+            person.Description = "some description";
+            person.Age = 42;
+            person.CustomValidationPropertyPass = "some contents that will pass";
+
+            var validationResults = new List<ValidationResult>();
+            var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(person);
+            var result = false;
+            result = Validator.TryValidateObject(person, validationContext, validationResults, true);
+            Assert.IsTrue(result);
+
+            //DFTODO - implement test
+            Assert.Inconclusive();
+        }
     }
 }

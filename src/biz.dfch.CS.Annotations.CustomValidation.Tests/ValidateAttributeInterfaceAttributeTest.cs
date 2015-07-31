@@ -140,7 +140,7 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
             Assert.AreEqual("CustomValidationPropertyFail", memberName);
         }
         [TestMethod]
-        public void ValidatingCustomValidationPropertyPassOnPersonWithCustomValidationReturnsValidationError()
+        public void ValidatingCustomValidationPropertyPassOnPersonWithCustomValidationReturnsTrue()
         {
             var person = new PersonWithCustomValidation();
             person.Name = "Edgar";

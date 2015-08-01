@@ -111,6 +111,8 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
             person.Name = "Edgar";
             person.Description = "some description";
             person.Age = 42;
+
+            // property under test
             person.CustomAnnotationProperty = "tralala";
 
             var validationResults = new List<ValidationResult>();
@@ -127,6 +129,8 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
             person.Name = "Edgar";
             person.Description = "some description";
             person.Age = 42;
+
+            // property under test
             person.CustomValidationPropertyFail = "some contents that will fail";
 
             var validationResults = new List<ValidationResult>();
@@ -147,6 +151,8 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
             person.Name = "Edgar";
             person.Description = "some description";
             person.Age = 42;
+
+            // property under test
             person.CustomValidationPropertyPass = "some contents that will pass";
 
             var validationResults = new List<ValidationResult>();
@@ -163,6 +169,8 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
             person.Name = "Edgar";
             person.Description = "some description";
             person.Age = 42;
+
+            // property under test
             person.AnnotationWithValidationInBaseClass = "some contents that will fail";
 
             var validationResults = new List<ValidationResult>();
@@ -177,6 +185,8 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
             person.Name = "Edgar";
             person.Description = "some description";
             person.Age = 42;
+
+            // property under test
             person.AnnotationWithValidationStub = "en-us";
 
             var validationResults = new List<ValidationResult>();
@@ -192,6 +202,8 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
             person.Name = "Edgar";
             person.Description = "some description";
             person.Age = 42;
+
+            // property under test
             person.AnnotationWithValidationStub = "non-iso3166-country-code-that-will-fail";
 
             var validationResults = new List<ValidationResult>();

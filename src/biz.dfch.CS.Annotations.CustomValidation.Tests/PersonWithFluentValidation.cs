@@ -20,11 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
-using biz.dfch.CS.Annotations.CustomValidation;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace biz.dfch.CS.Annotations.CustomValidation.Tests
 {

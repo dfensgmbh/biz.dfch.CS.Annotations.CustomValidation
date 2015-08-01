@@ -18,12 +18,10 @@
  */
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace biz.dfch.CS.Annotations.CustomValidation.Tests
 {
-    [CustomAnnotation(typeof(PersonWithCustomAnnotation))]
-    public class PersonWithCustomAnnotation
+    public class PersonWithCustomValidationInBase : CustomValidationBase
     {
         [Required]
         [MaxLength(8)]
@@ -35,7 +33,7 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
         [Range(18, 67)]
         public UInt16 Age { get; set; }
 
-        [CustomAnnotation(typeof(PersonWithCustomAnnotation))]
-        public String CustomAnnotationProperty { get; set; }
+        [CustomValidation(typeof(PersonWithCustomValidation), "AnnotationWithValidationInStubImplValidator")]
+        public String AnnotationWithValidationInBaseClass { get; set; }
     }
 }

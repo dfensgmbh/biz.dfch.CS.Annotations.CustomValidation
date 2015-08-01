@@ -20,11 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
-using biz.dfch.CS.Annotations.CustomValidation;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace biz.dfch.CS.Annotations.CustomValidation.Tests
 {
@@ -50,7 +45,7 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
                 return new ValidationResult(
                     String.Format("CustomValidationPropertyFailValidator-ErrorMessage: '{0}'", name)
                     ,
-                    new List<String>() { "CustomValidationPropertyFail" }
+                    new List<String>() { validationContext.MemberName }
                     );
             }
             return ValidationResult.Success;

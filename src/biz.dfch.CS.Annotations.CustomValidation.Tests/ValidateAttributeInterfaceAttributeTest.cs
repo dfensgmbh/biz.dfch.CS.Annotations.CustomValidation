@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FluentValidation;
 
 namespace biz.dfch.CS.Annotations.CustomValidation.Tests
 {
@@ -110,6 +108,8 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
             person.Name = "Edgar";
             person.Description = "some description";
             person.Age = 42;
+
+            // property under test
             person.CustomAnnotationProperty = "tralala";
 
             var validationResults = new List<ValidationResult>();
@@ -126,6 +126,8 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
             person.Name = "Edgar";
             person.Description = "some description";
             person.Age = 42;
+
+            // property under test
             person.CustomValidationPropertyFail = "some contents that will fail";
 
             var validationResults = new List<ValidationResult>();
@@ -146,6 +148,8 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
             person.Name = "Edgar";
             person.Description = "some description";
             person.Age = 42;
+
+            // property under test
             person.CustomValidationPropertyPass = "some contents that will pass";
 
             var validationResults = new List<ValidationResult>();
@@ -153,6 +157,111 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
             var result = false;
             result = Validator.TryValidateObject(person, validationContext, validationResults, true);
             Assert.IsTrue(result);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(System.InvalidOperationException))]
+        public void ValidatingAnnotationWithValidationInBaseClassOnPersonWithCustomValidationInBaseThrowsInvalidOperationException()
+        {
+            var person = new PersonWithCustomValidationInBase();
+            person.Name = "Edgar";
+            person.Description = "some description";
+            person.Age = 42;
+
+            // property under test
+            person.AnnotationWithValidationInBaseClass = "some contents that will fail";
+
+            var validationResults = new List<ValidationResult>();
+            var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(person);
+            var result = false;
+            result = Validator.TryValidateObject(person, validationContext, validationResults, true);
+        }
+        [TestMethod]
+        public void AnnotationWithValidationStubValidatorOnPersonWithCustomValidationInStubReturnsTrue()
+        {
+            var person = new PersonWithCustomValidationInStub();
+            person.Name = "Edgar";
+            person.Description = "some description";
+            person.Age = 42;
+            person.AnnotationWithValidationExternal = "en";
+            person.Iso3166CountryCode = "en";
+
+            // property under test
+            person.AnnotationWithValidationStub = "en";
+
+            var validationResults = new List<ValidationResult>();
+            var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(person);
+            var result = false;
+            result = Validator.TryValidateObject(person, validationContext, validationResults, true);
+            Assert.IsTrue(result);
+        }
+        [TestMethod]
+        public void AnnotationWithValidationStubValidatorOnPersonWithCustomValidationInStubReturnsValidationError()
+        {
+            var person = new PersonWithCustomValidationInStub();
+            person.Name = "Edgar";
+            person.Description = "some description";
+            person.Age = 42;
+            person.AnnotationWithValidationExternal = "en";
+            person.Iso3166CountryCode = "en";
+
+            // property under test
+            person.AnnotationWithValidationStub = "non-iso3166-country-code-that-will-fail";
+
+            var validationResults = new List<ValidationResult>();
+            var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(person);
+            var result = false;
+            result = Validator.TryValidateObject(person, validationContext, validationResults, true);
+            Assert.IsFalse(result);
+            Assert.AreEqual(1, validationResults.Count());
+            var validationResult = validationResults[0];
+            Assert.AreEqual(1, validationResult.MemberNames.Count());
+            var memberName = validationResult.MemberNames.First();
+            Assert.AreEqual("AnnotationWithValidationStub", memberName);
+            Assert.IsTrue(validationResult.ErrorMessage.Contains("en"));
+        }
+        [TestMethod]
+        public void AnnotationWithValidationExternalValidatorOnPersonWithCustomValidationInStubReturnsTrue()
+        {
+            var person = new PersonWithCustomValidationInStub();
+            person.Name = "Edgar";
+            person.Description = "some description";
+            person.Age = 42;
+            person.AnnotationWithValidationStub = "en";
+            person.Iso3166CountryCode = "en";
+
+            // property under test
+            person.AnnotationWithValidationExternal = "en";
+
+            var validationResults = new List<ValidationResult>();
+            var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(person);
+            var result = false;
+            result = Validator.TryValidateObject(person, validationContext, validationResults, true);
+            Assert.IsTrue(result);
+        }
+        [TestMethod]
+        public void AnnotationWithValidationExternalValidatorOnPersonWithCustomValidationInStubReturnsValidationError()
+        {
+            var person = new PersonWithCustomValidationInStub();
+            person.Name = "Edgar";
+            person.Description = "some description";
+            person.Age = 42;
+            person.AnnotationWithValidationStub = "en";
+            person.Iso3166CountryCode = "en";
+
+            // property under test
+            person.AnnotationWithValidationExternal = "non-iso3166-country-code-that-will-fail";
+
+            var validationResults = new List<ValidationResult>();
+            var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(person);
+            var result = false;
+            result = Validator.TryValidateObject(person, validationContext, validationResults, true);
+            Assert.IsFalse(result);
+            Assert.AreEqual(1, validationResults.Count());
+            var validationResult = validationResults[0];
+            Assert.AreEqual(1, validationResult.MemberNames.Count());
+            var memberName = validationResult.MemberNames.First();
+            Assert.AreEqual("AnnotationWithValidationExternal", memberName);
+            Assert.IsTrue(validationResult.ErrorMessage.Contains("e"));
         }
         [TestMethod]
         public void ValidatingFluentValidationOnPersonWithFluentValidationReturnsValidationError()

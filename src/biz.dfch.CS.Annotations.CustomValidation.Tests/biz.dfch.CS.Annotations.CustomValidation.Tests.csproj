@@ -59,6 +59,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="PersonWithCustomValidationInStub.cs" />
+    <Compile Include="PersonWithCustomValidationInBase.cs" />
+    <Compile Include="CustomValidationStubImplementation.cs" />
+    <Compile Include="CustomValidationBase.cs" />
     <Compile Include="PersonWithFluentValidation.cs" />
     <Compile Include="PersonWithCustomValidation.cs" />
     <Compile Include="PersonWithCustomAnnotation.cs" />

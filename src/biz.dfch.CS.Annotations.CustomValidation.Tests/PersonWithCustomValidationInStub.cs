@@ -18,12 +18,10 @@
  */
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace biz.dfch.CS.Annotations.CustomValidation.Tests
 {
-    [CustomAnnotation(typeof(PersonWithCustomAnnotation))]
-    public class PersonWithCustomAnnotation
+    public class PersonWithCustomValidationInStub
     {
         [Required]
         [MaxLength(8)]
@@ -35,7 +33,18 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
         [Range(18, 67)]
         public UInt16 Age { get; set; }
 
-        [CustomAnnotation(typeof(PersonWithCustomAnnotation))]
-        public String CustomAnnotationProperty { get; set; }
+        [CustomValidation(typeof(PersonWithCustomValidationInStub), "AnnotationWithValidationStubValidator")]
+        public String AnnotationWithValidationStub { get; set; }
+
+        public static ValidationResult AnnotationWithValidationStubValidator(String name, ValidationContext validationContext)
+        {
+            return CustomValidationStubImplementation.AnnotationWithValidationInStubImplValidator(name, validationContext);
+        }
+
+        [CustomValidation(typeof(CustomValidationStubImplementation), "AnnotationWithValidationInStubImplValidator")]
+        public String AnnotationWithValidationExternal { get; set; }
+
+        [CustomValidation(typeof(CustomValidationStubImplementation), "Iso3166Validator")]
+        public string Iso3166CountryCode { get; set; }
     }
 }

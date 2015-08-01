@@ -43,5 +43,8 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
 
         [CustomValidation(typeof(CustomValidationStubImplementation), "AnnotationWithValidationInStubImplValidator")]
         public String AnnotationWithValidationExternal { get; set; }
+
+        [CustomValidation(typeof(CustomValidationStubImplementation), "Iso3166Validator")]
+        public string Iso3166CountryCode { get; set; }
     }
 }

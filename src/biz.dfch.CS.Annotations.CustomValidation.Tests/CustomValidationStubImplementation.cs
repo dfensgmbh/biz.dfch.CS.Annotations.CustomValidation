@@ -19,9 +19,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace biz.dfch.CS.Annotations.CustomValidation.Tests
 {
@@ -29,13 +28,30 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
     {
         public static ValidationResult AnnotationWithValidationInStubImplValidator(String name, ValidationContext validationContext)
         {
-            if (String.IsNullOrWhiteSpace(name) || !name.Equals("en-us", StringComparison.InvariantCultureIgnoreCase))
+            if (String.IsNullOrWhiteSpace(name) || !name.Equals("en", StringComparison.InvariantCultureIgnoreCase))
             {
                 return new ValidationResult(
-                    String.Format("CustomValidationPropertyFailValidator-ErrorMessage: '{0}'. Property must be set to 'en-us'.", name)
+                    String.Format("CustomValidationPropertyFailValidator-ErrorMessage: '{0}'. Property must be set to 'en'.", name)
                     ,
                     new List<String>() { validationContext.MemberName }
                     );
+            }
+            return ValidationResult.Success;
+        }
+
+        public static ValidationResult Iso3166Validator(string name, ValidationContext validationContext)
+        {
+            var culture = CultureInfo.GetCultures(CultureTypes.AllCultures)
+                .Where(c => c.TwoLetterISOLanguageName.Equals(name, StringComparison.InvariantCultureIgnoreCase))
+                .Select(c => c.TwoLetterISOLanguageName)
+                .FirstOrDefault();
+            if (null == culture)
+            {
+                return new ValidationResult(
+                    String.Format("Iso3166Validator FAILED: '{0}' is not an ISO3166 country code.", name)
+                    ,
+                    new List<String>() { validationContext.MemberName }
+                    );  
             }
             return ValidationResult.Success;
         }

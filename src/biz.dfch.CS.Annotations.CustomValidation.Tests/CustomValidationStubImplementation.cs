@@ -27,7 +27,7 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
 {
     public class CustomValidationStubImplementation
     {
-        public static ValidationResult AnnotationWithValidationInBaseClassValidator(String name, ValidationContext validationContext)
+        public static ValidationResult AnnotationWithValidationInStubImplValidator(String name, ValidationContext validationContext)
         {
             if (String.IsNullOrWhiteSpace(name) || !name.Equals("en-us", StringComparison.InvariantCultureIgnoreCase))
             {

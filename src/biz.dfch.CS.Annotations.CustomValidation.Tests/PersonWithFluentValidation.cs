@@ -52,7 +52,7 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
                 return new ValidationResult(
                     String.Format("CustomValidationPropertyFailValidator-ErrorMessage: '{0}'", name)
                     ,
-                    new List<String>() { "CustomValidationPropertyFail" }
+                    new List<String>() { validationContext.MemberName }
                     );
             }
             return ValidationResult.Success;

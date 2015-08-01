@@ -47,5 +47,8 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
         {
             return CustomValidationStubImplementation.AnnotationWithValidationInStubImplValidator(name, validationContext);
         }
+
+        [CustomValidation(typeof(CustomValidationStubImplementation), "AnnotationWithValidationInStubImplValidator")]
+        public String AnnotationWithValidationExternal { get; set; }
     }
 }

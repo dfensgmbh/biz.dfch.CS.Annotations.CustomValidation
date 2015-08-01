@@ -45,7 +45,7 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
 
         public static ValidationResult AnnotationWithValidationStubValidator(String name, ValidationContext validationContext)
         {
-            return CustomValidationStubImplementation.AnnotationWithValidationInBaseClassValidator(name, validationContext);
+            return CustomValidationStubImplementation.AnnotationWithValidationInStubImplValidator(name, validationContext);
         }
     }
 }

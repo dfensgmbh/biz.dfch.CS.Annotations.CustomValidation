@@ -40,7 +40,7 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
         [Range(18, 67)]
         public UInt16 Age { get; set; }
 
-        [CustomValidation(typeof(PersonWithCustomValidation), "AnnotationWithValidationInBaseClassValidator")]
+        [CustomValidation(typeof(PersonWithCustomValidation), "AnnotationWithValidationInStubImplValidator")]
         public String AnnotationWithValidationInBaseClass { get; set; }
     }
 }

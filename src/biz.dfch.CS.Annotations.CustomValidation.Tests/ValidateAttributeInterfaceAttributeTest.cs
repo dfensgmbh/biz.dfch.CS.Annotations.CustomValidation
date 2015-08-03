@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MSTestExtensions;
 
 namespace biz.dfch.CS.Annotations.CustomValidation.Tests
 {
@@ -159,7 +160,6 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
             Assert.IsTrue(result);
         }
         [TestMethod]
-        [ExpectedException(typeof(System.InvalidOperationException))]
         public void ValidatingAnnotationWithValidationInBaseClassOnPersonWithCustomValidationInBaseThrowsInvalidOperationException()
         {
             var person = new PersonWithCustomValidationInBase();
@@ -173,7 +173,7 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
             var validationResults = new List<ValidationResult>();
             var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(person);
             var result = false;
-            result = Validator.TryValidateObject(person, validationContext, validationResults, true);
+            ThrowsAssert.Throws<InvalidOperationException>(() => Validator.TryValidateObject(person, validationContext, validationResults, true));
         }
         [TestMethod]
         public void AnnotationWithValidationStubValidatorOnPersonWithCustomValidationInStubReturnsTrue()

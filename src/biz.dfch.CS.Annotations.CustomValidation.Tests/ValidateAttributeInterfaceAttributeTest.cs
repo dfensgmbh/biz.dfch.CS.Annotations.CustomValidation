@@ -302,7 +302,7 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
             Assert.IsTrue(result);
 
             //DFTODO - implement test
-            Assert.Inconclusive();
+            Assert.Inconclusive("Has to be implemented");
         }
     }
 }

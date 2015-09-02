@@ -9,6 +9,7 @@ namespace biz.dfch.CS.Annotations.CustomValidation.Tests
     [TestClass]
     public class ValidateListTest
     {
+        [Ignore]
         [TestMethod]
         public void ThisTestWillBeMarkedAsIgnored()
         {
